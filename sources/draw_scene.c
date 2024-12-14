@@ -6,11 +6,12 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 02:09:07 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/10/05 20:23:02 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:14:26 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+#include "../includes/vector.h"
 #include <stdio.h>
 
 void	my_put_pixel(mlx_image_t *img, int x, int y, int color)
@@ -53,6 +54,7 @@ t_vector	get_pixel_direction(int x, int y, t_scene scene)
 	direction.x = pixel.x;
 	direction.y = pixel.y;
 	direction.z = pixel.z;
+	//direction = rotar_vector(direction, scene.camera.orientation);
 	return (direction);
 }
 
@@ -71,16 +73,20 @@ void	draw_scene(t_data data, t_scene scene)
 		x = 0;
 		while (x < img->width / BPP)
 		{
-			//printf("Pixel: (%d, %d)\n", x, y);
 			px_direction = get_pixel_direction(x, y, scene);
 			ray = ray_tracing(scene.camera.origin, px_direction,
-					scene.objects, scene.lights);
+					scene.objects, scene.lights, scene.ambient_light);
 			if (!ray.hit)
-				ray.color = scene.ambient_light.color;
+				ray.color = 0xff;
+				//ray.color = scene.ambient_light.color;
+				//ray.color = scene.ambient_light.color;
 			my_put_pixel(data.img, x, y, ray.color);
 			x++;
-			//printf("\n");
 		}
 		y++;
 	}
+	//my_put_pixel(data.img, 540 / BPP, 570 / BPP, 0xFFffFFff);
+	//my_put_pixel(data.img, 590 / BPP, 620 / BPP, 0xFFffFFff);
 }
+			//printf("Pixel: (%d, %d)\n", x, y);
+			//printf("\n");

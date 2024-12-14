@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:17:54 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/10/05 20:22:56 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:13:13 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	asign_color_intensity(int color, float percentage, int ambient)
 	int	new_percent;
 
 	new_percent = percentage * COLOR_DEF;
+	//printf("FinalInInt: %d\n", new_percent);
 	color = proportional_color(new_percent, ambient, color);
 	return (color);
 }
@@ -83,7 +84,8 @@ t_vector	object_normal(t_vector point, t_object *object)
 	return (normal);
 }
 
-int	get_color_from_object(t_trace ray, t_light *light, t_object *objects)
+int	get_color_from_object(t_trace ray, t_light *light,
+		t_object *objects, t_ambient amb)
 {
 	t_vector	normal;
 	t_vector	light_direction;
@@ -100,15 +102,19 @@ int	get_color_from_object(t_trace ray, t_light *light, t_object *objects)
 		{
 			rangle = angle_between_vectors(light_direction, normal);
 			percentage += straight_angle_percentage(rangle);
-		//	printf("percentage: %f\n", percentage);
+			//printf("percentage: %f\n", percentage);
 		}
 		//else
-		//	printf("Obstructed\n");
+			//printf("Obstructed\n");
 		light = light->next;
 	}
+	(void)amb;
+	//percentage += amb.brightness;
 	if (percentage > 1.f)
 		percentage = 1.f;
-	color = asign_color_intensity(ray.object->color, percentage, 0xff);
+	if (percentage < amb.brightness)
+		percentage = amb.brightness;
+	color = asign_color_intensity(ray.object->color, percentage, amb.color);
 	return (color);
 }
 //	if (ray.object->type == SPHERE)

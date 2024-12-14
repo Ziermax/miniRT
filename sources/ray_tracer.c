@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:17:02 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/10/04 23:11:08 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:02:35 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_trace	hit_tracer(t_vector point, t_vector direction, t_object *object)
 //	ray.distance = distance_of_points(point, ray.hit_point);
 
 t_trace	ray_tracing(t_vector point, t_vector direction,
-		t_object *object, t_light *lights)
+		t_object *object, t_light *lights, t_ambient amb)
 {
 	t_trace		ray;
 	t_trace		aux;
@@ -53,6 +53,8 @@ t_trace	ray_tracing(t_vector point, t_vector direction,
 	}
 	if (!ray.hit)
 		return (ray);
-	ray.color = get_color_from_object(ray, lights, obj_lst);
+	(void)lights;
+	ray.color = ray.object->color;
+	ray.color = get_color_from_object(ray, lights, obj_lst, amb);
 	return (ray);
 }

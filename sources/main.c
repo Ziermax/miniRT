@@ -6,7 +6,7 @@
 /*   By: avolcy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 10:45:16 by avolcy            #+#    #+#             */
-/*   Updated: 2024/10/05 20:22:38 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:13:39 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_object	*hardcode_sphere(void)
 	object->shape.sphere.center.x = 0.f;
 	object->shape.sphere.center.z = 20.f;
 	object->shape.sphere.center.y = 0.f;
-	object->shape.sphere.radius = 5.f;
+	object->shape.sphere.radius = 10.f;
 	object->color = 0x00FF00ff;
 	object->next = NULL;
 	return (object);
@@ -100,20 +100,21 @@ t_scene	init_scene(void)
 	scene.camera.orientation.x = 0.f;
 	scene.camera.orientation.y = 0.f;
 	scene.camera.orientation.z = 1.f;
-	scene.camera.fov_h = 70;
+	scene.camera.fov_h = 60;
 	scene.camera.fov_v = (float)scene.camera.fov_h * W_WIDTH / W_HEIGHT;
 	/*	*
 	 *	Luces
 	 */
-	scene.ambient_light.brightness = 1.f;
-	scene.ambient_light.color = 0x0;
+	scene.ambient_light.brightness = 0.1f;
+	scene.ambient_light.color = 0xFFffFFff;
 	scene.light_count = 1;
 	scene.lights = NULL;
 	lst_add_back(&scene.lights, hardcode_light());
-	scene.lights->origin.x = -10;
-	scene.lights->origin.y = 5.f;
-	scene.lights->origin.z = 15;
-	lst_add_back(&scene.lights, hardcode_light());
+	//scene.lights->origin.x = 10;
+	//scene.lights->origin.y = 5.f;
+	scene.lights->origin.z = 12.f;
+	//scene.lights->brightness = 10.f;
+	//lst_add_back(&scene.lights, hardcode_light());
 	/*	*
 	 *	Objects
 	 */
@@ -123,15 +124,29 @@ t_scene	init_scene(void)
 	//scene.objects->shape.sphere.center.y = 4.f;
 	//scene.objects->color = 0x00FF00ff;
 	//scene.objects->shape.sphere.center.z = 15.f;
-	lst_add_back(&scene.objects, hardcode_plane());
-	scene.objects->shape.plane.normal.z = 0.f;
-	scene.objects->shape.plane.center.y = -5.f;
-	scene.objects->color = 0xFFff;
-	lst_add_back(&scene.objects, hardcode_plane());
-	scene.objects->next->shape.plane.center.z = 25.f;
-	scene.objects->next->shape.plane.normal.y = 0.f;
-	scene.objects->next->shape.plane.normal.z = -1.f;
+	//lst_add_back(&scene.objects, hardcode_plane());
+	//scene.objects->shape.plane.normal.z = 0.f;
+	//scene.objects->shape.plane.center.y = -5.f;
+	//scene.objects->color = 0xFFff;
 	lst_add_back(&scene.objects, hardcode_sphere());
+	scene.objects->shape.sphere.center.z = 8.19152f;
+	scene.objects->shape.sphere.center.x = 5.7357f;
+	scene.objects->shape.sphere.radius = 4;
+	scene.objects->color = GREEN;
+	lst_add_back(&scene.objects, hardcode_sphere());
+	//scene.objects->next->shape.sphere.center.z = 50;
+	scene.objects->next->shape.sphere.center.z = 8.19152f;
+	scene.objects->next->shape.sphere.center.x = -5.7357f;
+	scene.objects->next->shape.sphere.radius = 4;
+	scene.objects->next->color = RED;
+	lst_add_back(&scene.objects, hardcode_sphere());
+	scene.objects->next->next->shape.sphere.center.z = 50;
+	scene.objects->next->next->shape.sphere.radius = 3;
+	scene.objects->next->next->color = BLUE;
+	//lst_add_back(&scene.objects, hardcode_plane());
+	//scene.objects->next->shape.plane.center.z = 25.f;
+	//scene.objects->next->shape.plane.normal.y = 0.f;
+	//scene.objects->next->shape.plane.normal.z = -1.f;
 	scene.sim_height = tan(scene.camera.fov_v * M_PI / 180.f / 2.f);
 	scene.sim_width = -tan(scene.camera.fov_h * M_PI / 180.f / 2.f);
 	return (scene);

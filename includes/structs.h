@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 22:12:42 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/10/05 20:23:38 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:05:08 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@
 # define W_WIDTH	1000
 # define W_HEIGHT	1000
 # define ANG_PRES 1000
-# define COLOR_DEF 1000
-# define BPP 10
+# define COLOR_DEF 100000
+# define BPP 1
 # define X 0
 # define Y 1
+# define RED 0xFF0000ff
+# define GREEN 0x00FF00ff
+# define BLUE 0x0000FFff
 
 typedef enum e_objtype
 {

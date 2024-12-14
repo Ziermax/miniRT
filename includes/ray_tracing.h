@@ -6,7 +6,7 @@
 /*   By: mvelazqu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:28:04 by mvelazqu          #+#    #+#             */
-/*   Updated: 2024/10/04 20:32:04 by mvelazqu         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:01:45 by mvelazqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ t_trace		sphere_intersection(t_vector point,
 t_trace		plane_intersection(t_vector point,
 				t_vector direction, t_object *obj);
 int			get_color_from_object(t_trace ray,
-				t_light *light, t_object *objects);
+				t_light *light, t_object *objects, t_ambient amb);
 
 #endif
